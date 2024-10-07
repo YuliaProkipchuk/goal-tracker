@@ -1,0 +1,211 @@
+* {
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+}
+
+dialog .title {
+    text-align: center;
+    color: var(--secondary-color);
+    /* font-family: "Rammetto One", sans-serif; */
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    text-shadow: 0px 2px 1px rgb(2, 38, 55);
+}
+
+dialog form {
+    width: 80%;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.input_box {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    font-family: sans-serif;
+    margin: 35px 0;
+}
+
+.input_box input,
+.input_box textarea {
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: transparent;
+    border-color: var(--accent);
+
+}
+
+.input_box input {
+    height: 40px;
+}
+
+.input_box textarea {
+    height: 100px;
+}
+
+.input_box label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: var(--text-color);
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.input_box input:focus,
+.input_box textarea:focus {
+    outline: none;
+    border: 2px solid #78ABA8;
+}
+
+.input_box input:focus+label,
+.input_box input:not(:placeholder-shown)+label,
+/* Додає ефект, коли поле не пусте */
+.input_box textarea:focus+label,
+.input_box textarea:not(:placeholder-shown)+label {
+    color: var(--text-color);
+    background-color: var(--card-back);
+
+    top: -10px
+}
+
+/* .input_box input[type='radio']{
+    display: inline-block;
+} */
+.radio_input {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.radio_input label {
+    display: flex;
+    position: relative;
+    margin: 10px 0;
+    height: 30px;
+    min-width: 70px;
+    align-items: center;
+}
+
+.radio_input input {
+    display: none;
+}
+
+.radio_btn {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    /* top: 5px; */
+}
+
+.radio_input label p {
+    /* position: absolute;
+    left: 20px; */
+    margin-left: 10px;
+}
+
+.radio_btn::before {
+    content: '';
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--accent);
+    transition: width 0.3s linear, height 0.3s linear;
+}
+
+.radio_input input:checked+.radio_btn::before {
+    width: 11px;
+    height: 11px;
+}
+
+.radio_input input:checked+.radio_btn::before {
+    animation: pulse 0.3s linear;
+}
+
+.radio_input input:checked+.radio_btn+p {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.radio_val {
+    text-transform: capitalize;
+}
+
+@keyframes pulse {
+    0% {
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+.add_btn,
+.cancel_btn {
+    margin: auto;
+    text-align: center;
+    /* width: 200px; */
+    flex: 1;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.add_btn {
+    background: var(--accent);
+}
+
+.cancel_btn {
+    background: #6a19ada3;
+    color: #fff;
+}
+
+.add_btn:hover,
+.cancel_btn:hover {
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+/* .add_btn:hover{
+    background-color: #6d9a97;
+}
+.cancel_btn:hover{
+    background-color: #4f5454;
+} */
+.div_btn {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.newGoal_modal {
+    margin: auto;
+    min-height: 550px;
+    min-width: 46%;
+    border: none;
+    background-color: var(--card-back);
+    color: var(--text-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
+@media screen and (max-width:485px){
+    .radio_input{
+        justify-content: space-between;
+    }
+}

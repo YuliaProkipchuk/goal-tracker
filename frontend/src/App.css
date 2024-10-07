@@ -1,0 +1,288 @@
+:root {
+  --main-background: #0a0915;
+  --card-color: #121126;
+  --card-back: #12111c;
+  --card-violet: #3a264a;
+  --accent: #8c00ff;
+  --text-color: #bbbbbe;
+  --primary: #3d036d;
+  --secondary-color: #ab69c3;
+  --peach-cl: #EF9C66;
+  --light-peach-cl: #FCDC94;
+  --gray: #5a5a5a;
+}
+
+body {
+  background: var(--main-background);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+@media screen and (max-width:650px) {
+  html{
+    font-size: 12px;
+  }
+}
+@media screen and (max-width:470px) {
+  html{
+    font-size: 10px;
+  }
+}
+.welcome-p {
+  color: var(--text-color);
+  ;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.line {
+  width: 85%;
+  margin: auto;
+  height: 2px;
+  margin-top: 10px;
+  background-color: var(--text-color);
+  animation: slide 2s;
+}
+
+@keyframes slide {
+  from {
+    scale: 0;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+.auth_title {
+  text-align: center;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  align-self: flex-end;
+  
+
+}
+.auth_title h1{
+  text-transform: uppercase;
+  text-shadow: 0px 2px 8px rgb(2, 38, 55);
+}
+
+.auth-main {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.back-card {
+  flex:500px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  display: grid;
+  grid-auto-rows: auto;
+}
+
+.decorative-box {
+  flex:500px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+@media screen and (max-width:1000px) {
+  .back-card, .decorative-box{
+    flex: 100%;
+  }
+  .decorative-box{
+    z-index: -1;
+    transform: translateY(-86%);
+    opacity: .7;
+  }
+}
+.square {
+  position: absolute;
+  width: 100px;
+  aspect-ratio: 1;
+  background: var(--text-color);
+  bottom: calc(23px * var(--i));
+  left: calc(123px * var(--i));
+  animation: upS 3s linear infinite;
+  animation-delay: calc(-1s * var(--i));
+}
+
+[s1] {
+  bottom: 100px;
+  left: 20px;
+}
+
+[s2] {
+  left: 100px;
+}
+
+[s3] {
+  bottom: 200px;
+}
+
+[s4] {
+  bottom: 300px;
+}
+
+[s5] {
+  bottom: 0;
+}
+
+@keyframes upS {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+.sign-text {
+  color: var(--text-color);
+  font-family: sans-serif;
+}
+
+.sign-text:hover {
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
+.todo-main,
+.goal-main {
+  display: flex;
+
+}
+
+.todo-main {
+  height: 90%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+
+.home-main {
+  display: flex;
+  width: 85%;
+  margin: auto;
+  flex-wrap: wrap-reverse;
+}
+
+.profile-main {
+  width: 85%;
+  margin: auto;
+}
+
+.profile-info {
+  display: flex;
+  height: 20%;
+  gap: 50px;
+}
+
+.user-info>* {
+ 
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+.user-info .edit-input{
+  display: block;
+  background-color: var(--main-background);
+  height: 40px;
+  width: 300px;
+  border: none;
+}
+.user-info .edit-input:focus{
+  outline: none;
+  border-bottom: 2px solid var(--accent);
+
+}
+.edit-profile {
+  background: transparent;
+  height: 40px;
+  border-radius: 100px;
+  width: 150px;
+  border: 2px solid var(--accent);
+  margin: 10px 0;
+  color: var(--accent);
+}
+
+.edit-profile:hover {
+  color: var(--main-background);
+  animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background: var(--accent);
+  }
+
+  50% {
+    background: var(--secondary-color);
+
+  }
+}
+.pr-picture-wrapper{
+  position: relative;
+  height: 100px;
+}
+.edit-photo{
+  position: absolute;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid;
+  background-color: var(--main-background);
+  text-align: center;
+  bottom: 0;
+  right: 0;
+}
+.edit-photo input{
+  display: none;
+}
+.edit-photo i{
+  font-size: 1.5rem;
+}
+.edit-photo:hover{
+  cursor: pointer;
+}
+.profile-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.user-statisics{
+  width: 100%;
+  margin-top: 20px;
+}
+.user-statisics-pie{
+  text-align: center;
+  width: 100%;
+  height: 350px;
+  background-color: var(--card-back);
+  overflow: hidden;
+}
+.error{
+  margin: auto;
+}
+.recharts-wrapper{
+  margin: auto;
+  position: relative;
+  cursor: default;
+  
+}
+@media screen and (max-width:500px){
+  .recharts-wrapper{
+   overflow: hidden;
+   left: -40px;
+  }
+}

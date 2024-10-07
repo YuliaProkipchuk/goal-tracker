@@ -1,0 +1,229 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+.input{
+    height: 35px;
+    border: none;
+    /* border-bottom: 1px solid; */
+    padding: 2px 5px;
+}
+.addInput{
+    height: 35px;
+    width: 60%;
+    color: var(--text-color);
+    background-color: var(--main-background);
+    border-radius: 15px;
+    border-bottom:2px solid var(--accent);
+    padding: 2px 10px;
+
+}
+.addInput::placeholder{
+    padding: 2px 10px;
+}
+.addInput:focus::placeholder{
+    color: var(--text-color);
+}
+.editInput {
+    height: 21px;
+    width: 95%;
+    background: transparent;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text-color);
+    letter-spacing: 2px;
+    font-size: 1rem;
+}
+
+.input:focus {
+    outline: none;
+}
+.input::placeholder{
+    padding: 2px;
+}
+.btn {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+    color: var(--text-color);
+
+}
+
+.saveBtn {
+    background-color: var(--primary);
+    transition: background-color .5s cubic-bezier(1,1.38,0,-0.41);
+}
+.saveBtn:hover{
+    background-color: var(--accent);
+}
+.cancelBtn {
+    border: 2px solid var(--accent);
+    background-color: transparent;
+    
+}
+
+.toDo-grid {
+    margin: auto;
+    width: 90%;
+    height: calc(500px - 20%);
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr 3fr; */
+    grid-auto-rows: max-content;
+    row-gap: 52px;
+    font-family: sans-serif;
+    column-gap: 50px;
+    padding: 20px;
+}
+
+.toDo-grid h2 {
+    align-self: center;
+    justify-self: center;
+    letter-spacing: 3px;
+    color: var(--text-color);
+    font-size: 2rem;
+    /* text-shadow: 1px 1px 0 black; */
+    /* font-style: italic; */
+}
+.toDo-grid>form{
+    grid-column: 1 / 3;
+    width: 70%;
+}
+.date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.date-icon {
+    line-height: 16px;
+    filter: drop-shadow(1px 1px 0 black);
+    justify-self: flex-end;
+}
+
+.toDoList {
+    grid-column: 1/3;
+    width: 100%;
+    margin: auto;
+    list-style: none;
+    height: 100%;
+    /* background-color: #d8d8d8; */
+}
+
+.todo_item{
+    min-height: 70px;
+    background-color: var(--card-back);
+    border-radius: 5px;
+    color: var(--text-color);
+    letter-spacing: 2px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.todo_item::before{
+    content: '';
+    position: absolute;
+    width: 5px;
+    min-height: 60px;
+    top: 5px;
+    left: 10px;
+    border-radius: 100px;
+    background-color: var(--accent);
+}
+
+.add-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    /* grid-column: 1/3; */
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    border-radius: 15px;
+    border: 2px solid var(--secondary-color);
+    width: 150px;
+    height: 50px;
+    /* background-image: linear-gradient(to top, var(--secondary-color), var(--secondary-color));
+    background-position:bottom;
+    background-size: 30%; */
+    position: relative;
+    overflow: hidden;
+    transition: color 1s;
+
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    /* background: var(--secondary-color); */
+    color: black;
+}
+.add-btn::before{
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -111px;
+    background: var(--secondary-color);
+    width: 200%;
+    height: 208%;
+    transform: rotateZ(24deg) translateX(0px) translateY(30px);
+    transition: transform 1s;
+    z-index: -1;
+}
+.add-btn:hover::before{
+    transform: rotateZ(24deg) translateX(0px) translateY(-66px);
+}
+.todo_label {
+    display: flex;
+    gap: 10px;
+    margin-left: 25px;
+    min-height: 70px;
+    align-items: center;
+}
+.todo_label:hover{
+    cursor: pointer;
+}
+.custom_checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    position: relative;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox:checked+.custom_checkbox::before {
+    font-family: 'Bootstrap-icons';
+    content: '\F633';
+    position: absolute;
+    background-color: var(--dark-blue);
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+label>.checkbox:checked {
+    text-decoration: line-through;
+}
+/* .datePicker{
+    display: none;
+} */
+ 
+ @media screen and (max-width:1000px){
+    .toDo-grid>form{
+        width: 100%;
+    }
+ }
+ @media screen and (max-width:650px) {
+    .todo_item{
+        font-size: 1.5rem;
+    }
+    .toDo-grid>h2{
+        grid-column: 1 / 3;
+        margin: auto;
+    }
+    .addInput{
+        width: 40%;
+    }
+ }

@@ -1,0 +1,217 @@
+.plan-page {
+  width: 51%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.plan-page h1 {
+  font-size: 3rem;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  animation: fade 2s linear infinite;
+  animation-delay: 3s;
+}
+
+.plan-page h1::before,
+.plan-page h1::after {
+  content: 'goal progress';
+  text-transform: uppercase;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: fade 3s linear infinite;
+}
+
+.plan-page h1::before {
+  animation-delay: 1s;
+}
+
+.plan-page h1::after {
+  animation-delay: 2s;
+}
+
+@keyframes fade {
+  from {
+    color: var(--text-color);
+  }
+
+  to {
+    color: transparent;
+
+  }
+}
+
+.plan-items {
+  height: 20rem;
+  width: 90%;
+  text-align: center;
+}
+
+.plan-page ul {
+  list-style: none;
+  height: 100%;
+  width: 100%;
+  /* background-color: #fff; */
+  overflow: auto;
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--text-color);
+}
+
+/*  */
+form:has(>div.addStep_form) {
+  width: 85%;
+  /* margin: auto; */
+}
+
+.addStep_form {
+  width: 100%;
+  margin: auto;
+}
+
+.add_input {
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+  height: 40px;
+  background: transparent;
+  border: none;
+  width: calc(100% - 165px);
+  /* width: 500px; */
+  border-radius: 5px;
+  padding: 10px;
+  transition: border .3s;
+  color: var(--text-color);
+
+}
+
+.add_input::placeholder {
+  color: var(--text-color);
+}
+
+.add_input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--accent);
+
+}
+
+.btn {
+  height: 40px;
+  margin-left: 5px;
+  background: var(--card-back);
+  min-width: 60px;
+  color: var(--text-color);
+  border-radius: 5px;
+}
+
+.btn:active {
+  background: var(--accent);
+
+}
+
+.plan-item {
+  width: 100%;
+  min-height: 50px;
+  margin: auto;
+  text-align: left;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  transition: all .3s;
+}
+
+.plan-item:hover {
+  background: var(--card-violet);
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+.plan-label {
+  display: flex;
+  gap: 10px;
+}
+
+.plan-label span {
+  white-space: break-spaces;
+}
+
+.plan-label>div {
+  min-width: 20px;
+  align-self: center;
+}
+
+.plan-item form {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 0 20px;
+  /* margin: auto; */
+  align-items: center;
+
+}
+
+.planStep-btn {
+  min-width: 80px;
+}
+
+.planStep-btn button {
+  background: none;
+  width: 30px;
+  margin-right: 10px;
+  /* padding: 5px; */
+  border: none;
+  color: var(--accent);
+}
+
+.planStep-btn button:hover {
+  color: var(--secondary-color);
+
+}
+
+.planStep-btn button i {
+  font-size: 18px;
+
+}
+
+.editInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-color);
+  font-size: inherit;
+  border-bottom: 2px solid var(--accent);
+}
+
+@media screen and (max-width:1400px) {
+  .plan-page {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width:920px) {
+  .plan-page {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .plan-page {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .plan-item {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+  }
+  .add_input{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

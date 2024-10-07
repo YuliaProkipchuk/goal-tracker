@@ -1,0 +1,90 @@
+
+.auth-form {
+    width:80%;
+    /* width: 20%; */
+    margin: auto;
+    min-height: 300px;
+    display: grid;
+    align-content: center;
+    height: 70%;
+    /* flex-direction: column; */
+}
+.login{
+    display: grid;
+
+}
+.form-field {
+    display: flex;
+    flex-direction: column;
+    /* width: 70%; */
+    align-items: center;
+    font-family: sans-serif;
+    position: relative;
+}
+.form-field i{
+    position: absolute;
+    color: var(--gray);
+    font-size: 1.4rem;
+    top: 50px;
+    left: 10px;
+}
+
+.form-field input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    padding-left: 36px;
+    box-sizing: border-box;
+    border: 2px solid #B1B1B1; /* Сіре обрамлення */
+    border-radius: 8px; /* Заокруглені краї */
+    font-size: 16px; /* Розмір шрифту */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-field input::placeholder{
+    font-size: 1.1rem;
+}
+.form-field input:focus {
+    border-color: var(--accent); 
+    /* box-shadow: 0 0 10px rgba(255, 171, 64, 0.5); */
+    outline: none; 
+}
+.form-field label {
+    align-self: flex-start;
+    margin: 15px 0 5px;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+
+}
+.btn{
+    height: 40px;
+    width: 100px;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 8px; /* Заокруглені краї */
+    border: none;
+    outline: none;
+    background-color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    box-shadow: 0 0px 18px 2px rgb(100 30 155 / 65%) inset;
+    transition: transform .2s ease;
+    justify-self: flex-end;
+
+}
+.btn:hover{
+    cursor: pointer;
+    transform: translateY(-2px) scale(1.01);
+}
+.error-message{
+    text-align: justify;
+    font-size: .9rem;
+    color: rgb(249, 169, 169);
+}
+@media screen and (min-width:1200px) {
+    .auth-form{
+        width: 60%;
+    }
+  }

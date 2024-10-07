@@ -1,0 +1,278 @@
+.size {
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+}
+
+.notes-main {
+  /* padding: 0 15px; */
+  width: 51%;
+  z-index: 1;
+
+}
+
+.note-section {
+  width: 51%;
+  height: 90vh;
+  overflow: auto;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  text-align: justify;
+}
+
+.note-section h1 {
+  margin-bottom: 15px;
+  text-decoration: underline;
+  font-size: 2.2rem;
+}
+
+.backUp-text {
+  font-size: 2rem;
+  text-align: center;
+  transform: translateY(200px);
+}
+/*  */
+.newNote-form {
+  width: 400px;
+  margin: 15px auto;
+  border-radius: 10px;
+  background: var(--card-violet);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  /* box-shadow: 0 0 20px 0 var(--dark-blue); */
+}
+
+.newNote-form>input,
+.newNote-form>textarea {
+  border: none;
+  outline: none;
+  width: 95%;
+  margin: auto;
+  background: var(--card-violet);
+
+}
+.newNote-form>input{
+  font-size: 1.1rem;
+}
+.newNoteInput {
+  min-height: 40px;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  padding-left: 5px;
+
+}
+
+.noteInputSize {
+  min-height: 80px;
+  word-wrap: break-word;
+
+}
+
+.newNoteBtns {
+  order: 2;
+  align-self: flex-end;
+}
+.newNoteBtns button{
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 600;
+  height: 40px;
+  border: none;
+  outline: none;
+  /* text-align: center; */
+  width: 100px;
+  font-size: 1rem;
+}
+
+#newNote {
+  word-wrap: break-word;
+  cursor: text;
+  position: relative;
+  padding: 5px;
+
+}
+
+#newNote:focus,
+.note_modal_info:focus {
+  cursor: text;
+  border: none;
+  outline: none;
+}
+
+#newNote:empty::before {
+  content: attr(aria-label);
+  /* Встановлюємо контент з атрибута data-placeholder */
+  color: var(--text-color);
+  /* Колір для placeholder */
+  pointer-events: none;
+  /* Відключити можливість взаємодії з placeholder */
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: sans-serif;
+}
+
+#newNote:empty:focus:before {
+  content: '';
+  /* Видалення placeholder, щоб курсор міг з'явитися */
+}
+
+#newNote:empty:focus {
+  outline: none;
+}
+
+.note {
+  background: transparent;
+  border-radius: 15px;
+  border: 3px solid var(--card-violet);
+  cursor: pointer;
+  font-family: sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  color: var(--text-color);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note:hover {
+  border-width: 5px;
+  z-index: 1;
+
+  /* box-shadow: 0 0 2px 1px var(--dark-blue); */
+}
+
+.del_btn,
+.edit_btn {
+  /* font-family: 'Bootstrap-icons'; */
+  /* content: '\F78B'; */
+  color: var(--text-color);
+  position: absolute;
+  font-size: 18px;
+  /* width: 30px;
+  aspect-ratio: 1; */
+  text-align: center;
+  line-height: 1.5;
+  /* border: 1px solid; */
+  border-radius: 50%;
+  top: 12px;
+  right: 10px;
+  display: none;
+  /* background: var(--card-violet); */
+}
+
+.edit_btn {
+  top: 12px;
+  right: 40px;
+}
+
+.edit_btn:hover,
+.del_btn:hover {
+  color: var(--secondary-color);
+}
+
+.note:hover .del_btn,
+.note:hover .edit_btn {
+  display: block;
+  
+}
+
+.noteTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0 0px 10px 0;
+  width: 83%;
+}
+
+.noteText {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 83%;
+  /* max-width: 75ch;
+  white-space: nowrap;
+  margin-bottom: 10px; */
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+}
+
+.note_modal {
+  margin: auto;
+  max-height: 450px;
+  width: 800px;
+  border: none;
+  background-color: var(--card-violet);
+  color: var(--text-color);
+  font-family: sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.save_note{
+  height: 30px;
+  text-align: end;
+}
+.save_note button{
+  height: 100%;
+  width: 70px;
+  border-radius: 5px;
+  background-color: var(--accent);
+  border: none;
+}
+.save_note button:hover{
+  color: var(--text-color);
+}
+@media screen and (max-width:1400px){
+  .notes-main{
+      width: 70%;
+  }
+}
+@media screen and (max-width:920px){
+  .notes-main{
+      width: 90%;
+  }
+  .note-section{
+    width: 70%;
+  }
+  .del_btn, .edit_btn{
+    display: block;
+    z-index: 3;
+  }
+  .noteText{
+    width: 67px;
+  }
+}
+@media screen and (max-width:500px) {
+  .newNote-form{
+    width: 70%;
+  }
+  .notes-main{
+    width: 100%;
+  }
+  
+  
+  .size{
+    width: 79%;
+    margin-top: 15px;
+  }
+  .note-section{
+    width: 70%;
+  }
+}

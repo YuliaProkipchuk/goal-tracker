@@ -1,0 +1,17 @@
+.grid{
+    flex: 65%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 20px;
+    margin: 20px 0;
+    margin-right: 20px;
+    column-gap: 30px;
+}
+.fallback_message{
+    margin: auto;
+}
+@media screen and (max-width:1000px){
+    .grid{
+        margin-right: 0;
+    }
+}

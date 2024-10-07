@@ -1,0 +1,33 @@
+.clock-wrapper{
+    width: calc(100% - 220px - 65%);
+    height: 200px;
+    background: var(--card-back);
+    display: none;
+  
+    font-family: sans-serif;
+
+}
+.hours, .minutes{
+    width: 50%;
+    box-shadow: 0 0 10px 2px  rgba(0, 0, 0, 0.444),
+    0 0 10px 2px inset var(--main-background);
+}
+.hours, .minutes, .dots{
+    height: 100%;
+    color: var(--text-color);
+    font-size: 7rem;
+    /* padding: 0 10px; */
+    text-align: center;
+    line-height: 200px;
+
+}
+.dots{
+    width: 30px;
+    background-color: var(--main-background);
+    /* box-shadow: 0 0 10px 2px inset var(--main-background); */
+}
+@media screen and (min-width:1400px){
+ .clock-wrapper{
+    display: flex;
+ }   
+}
