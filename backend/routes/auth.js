@@ -67,6 +67,7 @@ router.post('/login', async (req, res) => {
     // const hashedPassword = await hash('ddddddd')
     // console.log('pass ',hashedPassword); 
     
+    console.log(key);
     
     if (comparePasswords) {
         const token = jwt.sign({ id: user._id }, key, { expiresIn: '4h' })
