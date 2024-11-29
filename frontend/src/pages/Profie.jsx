@@ -23,12 +23,12 @@ export default function ProfilePage() {
   }
   function imagePick(e){
     const file = e.target.files[0];
-    console.log(file);
+
     
     const fileReader = new FileReader();
     fileReader.onload=()=>{
          setImage({
-        // ...prev,
+    
         image:fileReader.result,
         metadata:file
     })
@@ -39,17 +39,14 @@ export default function ProfilePage() {
     imageRef.current.click();
   }
   function onEdit() {
-    // console.log(isEditing);
+
 
     if (isEditing) {
-      // console.log(userData);
+
       const formData = new FormData();
-      // formData.append('image', userData.image);
       const token = localStorage.getItem('token')
       formData.append('imageFile', image.metadata);
       formData.append('data', JSON.stringify(userData));
-      // formData.append('username', userData.username);
-      // formData.append('email', userData.email);
       const response = fetch(`http://localhost:8080/profile`, {
         method: "PATCH",
         headers: {
@@ -76,7 +73,6 @@ export default function ProfilePage() {
           <div className="pr-picture-wrapper">
             <img
               className="profile-image"
-            //   src="https://images.unsplash.com/photo-1721765500525-886babc7b6ed?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             src={isEditing && image.image?image.image:`http://localhost:8080/images/${userData.image}`}
             alt="profile picture"
             />
@@ -130,23 +126,4 @@ export default function ProfilePage() {
       </div>
     </main>
   );
-}
-export async function action({request, params}){
-  // const formData =await request.formData();
-  // const token = localStorage.getItem('token');
-  // const obj={
-  //   username:formData.get('username'),
-  //   email:formData.get('email'),
-  //   // image:formData.get('image'),
-  //   imageName:formData.get('imageFile')
-  // };
-  // const response = await fetch(`http://localhost:8080/profile`, {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  //   body: formData,
-  // });
-  return null;
 }
