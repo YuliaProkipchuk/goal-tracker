@@ -32,14 +32,14 @@ export default function ToDoList() {
   const datePicker = useRef(null);
   const submit = useSubmit();
   useEffect(() => {
-    console.log("kkk");
+    
     const ind = todo.todo.findIndex(
       (t) => new Date(t.date).toDateString() === currTodo.toDateString()
     );
     if (ind !== -1) {
-      console.log(todo)
+      
       setTasks(todo.todo[ind].tasks.length > 0 ? todo.todo[ind].tasks : null);
-      console.log(todo.todo[ind].tasks);
+
     } else {
       setTasks(null);
     }
