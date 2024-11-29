@@ -14,7 +14,6 @@ export default function HomePage() {
   const goals = searchData?.goals;
   const [isSearch, setIsSearch] = useState(false);
   const outputGoals = isSearch ? goals : data?.user.goals;
-  // console.log(data?.user.goals, outputGoals, isSearch);
   useEffect(() => {
     if (data) {
       setIsToken(true);
