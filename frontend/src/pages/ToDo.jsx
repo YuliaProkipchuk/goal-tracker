@@ -8,7 +8,7 @@ export const TodoDateContext = createContext();
 
 export default function ToDoPage() {
   const loaderData = useLoaderData();
-  console.log("load", loaderData);
+
   const [currTodo, setCurrToDo] = useState(new Date());
 
   return (
@@ -29,8 +29,6 @@ export async function loader({ params }) {
       },
     });
    if (!response.ok) {
-    // const a  = await response.json()
-    // console.log(a)
         throw json({ message: 'Could not fetch to do' }, { status: 500 })
     }
     else {
