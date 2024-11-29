@@ -62,7 +62,6 @@ app.patch('/profile',upload.single('imageFile'), authToken, async (req, res) => 
   user.username = jsonData.username;
   user.email = jsonData.email;
   user.image = req.file ? req.file.filename:user.image;
-  console.log(user); 
   
   user.save();
   res.json(user)
