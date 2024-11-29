@@ -12,14 +12,14 @@ export default function ToDoItem({ children, taskId, checked }) {
   const { currTodo } = useContext(TodoDateContext);
   const timeout = useRef(null);
   const submit = useSubmit();
-  console.log(isDoubleClick);
+  
 
   function handleChange() {
-    // Очистити попередній таймер, якщо він є
+  
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
-    // Встановити новий таймер
+ 
     timeout.current = setTimeout(() => {
       setIsDoubleClick(false);
       setIsChecked((prev) => !prev);
@@ -30,19 +30,18 @@ export default function ToDoItem({ children, taskId, checked }) {
       formData.append("actionType", "check");
 
       submit(formData, { method: "patch" });
-    }, 500); // Таймер на 500 мс
+    }, 500); 
   }
 
   function handleDoubleClick() {
-    clearTimeout(timeout.current); // Скасувати таймер одиночного кліка
-    console.log("Double clicked!");
+    clearTimeout(timeout.current);
+
     setIsDoubleClick(true);
 
-    // Додаткові дії при подвійних кліках, якщо необхідно
   }
   function handleLoseFocus() {
     setIsDoubleClick(false);
-    console.log(editText);
+   
     const formData = new FormData();
     formData.append("name", editText);
     if (editText !== undefined && editText.trim() === "") {
