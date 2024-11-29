@@ -6,20 +6,18 @@ import Note, { deleteNote } from "../components/Notes/Note";
 import { editNote } from "../components/Notes/NoteModal";
 import { useEffect, useRef, useState } from "react";
 import classes from '../components/Notes/Notes.module.css';
+
 export default function NotesPage() {
-  // const notes = useRouteLoaderData("goal")?.notes;
   const {notes} = useLoaderData();
   const [searchTerm, setSearchTerm] = useState('')
   const timer = useRef();
   const submit = useSubmit()
-  console.log(notes);
+
   useEffect(()=>{
     timer.current = setTimeout(()=>{
-      // if(searchTerm.trim()!==''){
         let searchParams = new URLSearchParams();
         searchParams.append("q", searchTerm);
         submit(searchParams);
-      // }
       
     },1000);
     return ()=>clearTimeout(timer.current)
@@ -77,7 +75,6 @@ export async function action({ params, request }) {
       data = {
         title: formData.get("title"),
         text: formData.get("text"),
-        // date
       };
       await postNewNote(url, data, token);
     } else if (actionType === "edit") {
