@@ -56,7 +56,6 @@ app.get('/profile', authToken, async (req, res) => {
 })
 app.patch('/profile',upload.single('imageFile'), authToken, async (req, res) => {
   const id = req.user.id;
-  // console.log('aaaa', req.file, req.body)
   const jsonData = JSON.parse(req.body.data);
   const user = await User.findById(id);
   console.log(jsonData);
