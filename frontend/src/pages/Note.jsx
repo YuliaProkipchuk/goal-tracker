@@ -1,9 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import classes from '../components/Notes/Notes.module.css';
 export default function NotePage(){
-    // console.log();
     const note = useLoaderData();
-    console.log(note);
     
     return <>
     <section className={classes["note-section"]}>
