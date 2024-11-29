@@ -12,7 +12,6 @@ import classes from '../components/Plan/Plan.module.css';
 export default function PlanPage() {
   const r = useRef(null);
   const plan = useRouteLoaderData("goal")?.plan;
-  console.log(plan);
   const actionData = useActionData();
 
   useEffect(() => {
@@ -107,7 +106,6 @@ export async function action({ request, params }) {
         step: formData.get("step"),
         status: false,
       };
-      console.log(item);
       const response = await fetch(`${url}/new`, {
         method: "POST",
         headers: {
@@ -116,13 +114,9 @@ export async function action({ request, params }) {
         },
         body: JSON.stringify(item),
       });
-      // const data = await response.json();
-      // console.log(data);
-      console.log("Returning from action:", { success: true });
     }
     return { success: true };
   } catch (err) {
-    console.log(err);
-    return null;
+    return err;
   }
 }
