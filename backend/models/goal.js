@@ -19,14 +19,7 @@ const GoalSchema = new Schema({
   due_date: Date,
   plan: [{
     title: String,
-    // description: String,
-    // status: {
-    //   type: String,
-    //   enum: ['to do', 'in progress', 'completed'],
-    //   default: 'to do'
-    // },
     completed: Boolean,
-    // priority: { type: Number, min: 1, max: 5, default: 5 }
   }],
 
   completed: { type: Number, default: 0 },
@@ -43,7 +36,6 @@ GoalSchema.pre('save', async function (next) {
     try {
       const user = await User.findById(this.userId);
 
-      // await User.findByIdAndUpdate(this.userId, { $push: { goals: this._id } });
       user.goals.push(this._id)
       user.userActivities.totalGoals++;
       user.userActivities.inProgress++;
