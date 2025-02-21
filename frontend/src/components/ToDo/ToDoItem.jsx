@@ -1,19 +1,19 @@
-import { useContext, useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+
+import { useRef, useState } from "react";
 import classes from "./ToDoList.module.css";
 import { motion } from "framer-motion";
-import { useSubmit } from "react-router-dom";
-import { TodoDateContext } from "../../pages/ToDo";
 import CheckInput from "../UI/CheckInput";
+import { useDeleteTaskMutation, useEditTodoMutation } from "../../features/todos/todoApiSlice";
 
-export default function ToDoItem({ children, taskId, checked }) {
-  const [isChecked, setIsChecked] = useState(checked);
+export default function ToDoItem({ task, newDate }) {
+  const [isChecked, setIsChecked] = useState(task.isCompleted);
   const [isDoubleClick, setIsDoubleClick] = useState(false);
-  const [editText, setEditText] = useState(children);
-  const { currTodo } = useContext(TodoDateContext);
+  const [editText, setEditText] = useState(task.title);
   const timeout = useRef(null);
-  const submit = useSubmit();
-  
-
+  console.log(isDoubleClick);
+  const [editTask] = useEditTodoMutation();
+  const [deleteTask] = useDeleteTaskMutation();
   function handleChange() {
   
     if (timeout.current) {
@@ -23,14 +23,20 @@ export default function ToDoItem({ children, taskId, checked }) {
     timeout.current = setTimeout(() => {
       setIsDoubleClick(false);
       setIsChecked((prev) => !prev);
-      const formData = new FormData();
-      formData.append("isCompleted", !isChecked);
-      formData.append("date", currTodo);
-      formData.append("taskId", taskId);
-      formData.append("actionType", "check");
-
-      submit(formData, { method: "patch" });
-    }, 500); 
+      const data={
+        taskId:task._id,
+        isCompleted:!isChecked,
+        actionType:'check'
+      }
+      const date = {
+        year: newDate.getFullYear(),
+        month: newDate.getMonth() + 1,
+        day: newDate.getDate(),
+      };
+      console.log(data)
+      editTask({todo:data, date})
+    
+    }, 500); // Таймер на 500 мс
   }
 
   function handleDoubleClick() {
@@ -41,20 +47,26 @@ export default function ToDoItem({ children, taskId, checked }) {
   }
   function handleLoseFocus() {
     setIsDoubleClick(false);
-   
+    console.log(editText);
+    const date = {
+      year: newDate.getFullYear(),
+      month: newDate.getMonth() + 1,
+      day: newDate.getDate(),
+    };
+    const data={
+      taskId:task._id,
+      name:editText
+    }
     const formData = new FormData();
     formData.append("name", editText);
     if (editText !== undefined && editText.trim() === "") {
-      formData.append("actionType", 'delete');
-      formData.append("date", currTodo);
-      formData.append("taskId", taskId);
-      submit(formData, { method: "delete" });
+      data.actionType='delete'
+      deleteTask({taskId:task._id, date});
+
     }
     else if(editText){
-      formData.append("actionType", 'edit');
-      formData.append("date", currTodo);
-      formData.append("taskId", taskId);
-      submit(formData, { method: "patch" });
+      data.actionType='edit'
+      editTask({todo:data, date});
     }
   }
 
@@ -68,17 +80,11 @@ export default function ToDoItem({ children, taskId, checked }) {
       }}
     >
       <label className={classes.todo_label} onDoubleClick={handleDoubleClick}>
-        {/* <input
-          type="checkbox"
-          onChange={handleChange}
-          className={classes.checkbox}
-          checked={isChecked}
-        />
-        <div className={classes.custom_checkbox}></div> */}
+      
         <CheckInput checkHandler={handleChange} isChecked={isChecked} className="round"/>
 
         {!isDoubleClick ? (
-          <span>{children}</span>
+          <span>{task.title}</span>
         ) : (
           <input
             value={editText}
@@ -94,24 +100,4 @@ export default function ToDoItem({ children, taskId, checked }) {
   );
 }
 
-export async function editTask(token, todoId, taskId, obj) {
-  await fetch(`http://localhost:8080/todo/${todoId}/${taskId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(obj),
-  });
-}
 
-export async function deleteTask(token, todoId, taskId, obj) {
-  await fetch(`http://localhost:8080/todo/${todoId}/${taskId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(obj),
-  });
-}

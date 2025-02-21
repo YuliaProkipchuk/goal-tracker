@@ -1,8 +1,7 @@
-import { Link, useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import classes from "./AsideMenu.module.css";
 import { useState } from "react";
-export default function AsideMenu({ type }) {
-  const data = useRouteLoaderData('user')
+export default function AsideMenu() {
   const navigate = useNavigate();
   const [burgerClass, setBurgerClass] = useState(false)
   return (
@@ -10,15 +9,14 @@ export default function AsideMenu({ type }) {
       <aside className={burgerClass?classes.burger_aside:undefined}>
       <i className="bi bi-list" onClick={()=>setBurgerClass(prev=>!prev)}></i>
         <ul className={burgerClass?classes.burger_menu:undefined}>
-          {/* <Link to={'.'}> */}
           <li>
             <i className="bi bi-box-arrow-left"></i>{" "}
             <span className={classes.menu_text} onClick={() => navigate("..")}>
               Back
             </span>
           </li>
-          {/* </Link> */}
-          <Link to={`../todo/${data.user.todos._id}`}>
+        
+          <Link to={`/todo`}>
             <li>
               {" "}
               <i className="bi bi-card-checklist"></i>{" "}
@@ -32,7 +30,7 @@ export default function AsideMenu({ type }) {
               <span className={classes.menu_text}>Plan</span>
             </li>
           </Link>
-          <Link to={"notes"}>
+          <Link to={"/notes"}>
             <li>
               <i className="bi bi-journal-richtext"></i>{" "}
               <span className={classes.menu_text}>Notes</span>

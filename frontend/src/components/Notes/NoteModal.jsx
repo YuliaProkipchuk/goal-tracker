@@ -1,19 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import classes from "./Notes.module.css";
 import DOMPurify from "dompurify";
-import { useSubmit } from "react-router-dom";
+import { useEditNoteMutation } from "../../features/notes/notesApiSlice";
 
 export default function NoteModal({ note, closeModal, openModal }) {
-  console.log(note.text);
-  const submit = useSubmit()
   const titleRef = useRef(null);
   const textRef = useRef(null);
   const ref = useRef();
 
-  useEffect(() => {
-    console.log(ref.current);
+  const [editNote] = useEditNoteMutation();
 
+  useEffect(() => {
     if (openModal) {
       ref.current?.showModal();
     } else {
@@ -21,34 +20,34 @@ export default function NoteModal({ note, closeModal, openModal }) {
     }
   }, [openModal]);
   function handleClickOutside(event) {
-    // Перевіряємо, чи клік був зроблений поза межами контенту діалогу
     if (event.target === ref.current) {
       closeModal();
     }
   }
 
-  function editNode() {
-    const formData = new FormData();
-    let text = textRef.current.innerText
-    let title = titleRef.current.innerText
-    text=text.replace(/(?:\r\n|\r|\n)/g, '<br/>')
-    title=title.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+  async function handleEditNode() {
+    let text = textRef.current.innerText;
+    let title = titleRef.current.innerText;
+    text = text.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+    title = title.replace(/(?:\r\n|\r|\n)/g, "<br/>");
     const cleantext = DOMPurify.sanitize(text);
     const cleantitle = DOMPurify.sanitize(title);
-    console.log(text);
-    formData.append("title", cleantitle || "");
-    formData.append("text", cleantext || "");
-    formData.append("actionType", "edit");
-    formData.append("id", note._id);
-    console.log(formData.get("title"));
-    submit(formData, { method: "patch" });
-    closeModal();
+    const data = {
+      title: cleantitle,
+      body: cleantext,
+      id: note._id,
+    };
+    try {
+      await editNote({ noteId: note._id, data }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
 
+    closeModal();
   }
   return (
     <>
       {createPortal(
-        // <div className={classes.back}>
         <dialog
           ref={ref}
           onClose={closeModal}
@@ -64,12 +63,12 @@ export default function NoteModal({ note, closeModal, openModal }) {
           ></h1>
           <p
             contentEditable
-            dangerouslySetInnerHTML={{ __html: note.text }}
+            dangerouslySetInnerHTML={{ __html: note.body }}
             className={classes.note_modal_info}
             ref={textRef}
           ></p>
           <div className={classes.save_note}>
-            <button onClick={editNode}>Save</button>
+            <button onClick={handleEditNode}>Save</button>
           </div>
         </dialog>,
         document.getElementById("dialog")
@@ -77,13 +76,4 @@ export default function NoteModal({ note, closeModal, openModal }) {
     </>
   );
 }
-export async function editNote(url, data, token) {
-  await fetch(url, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-}
+

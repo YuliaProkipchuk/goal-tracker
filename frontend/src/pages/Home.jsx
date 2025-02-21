@@ -1,83 +1,44 @@
-import { json, useLoaderData, useRouteLoaderData } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import GoalsGrid from "../components/Goals/GoalsGrid";
 import GoalsNav from "../components/Goals/GoalsNav";
 import Header from "../components/Header/Header";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../components/Root";
-import GoalsStatistic from "../components/Goals/GoalsStatistic";
+import { useGetGoalsQuery } from "../features/goals/goalApiSlice";
+import useAuth from "../hooks/useAuth";
 
 export default function HomePage() {
-  const { setIsToken } = useContext(AuthContext);
-  const data = useRouteLoaderData("user");
+  let [searchParams] = useSearchParams();
+  const {
+    data: goals,
+    isLoading,
+    isError,
+    error,
+  } = useGetGoalsQuery(searchParams.get("q"));
+  const { id, username } = useAuth();
+  console.log(id, username);
 
-  const searchData = useLoaderData();
-  const goals = searchData?.goals;
-  const [isSearch, setIsSearch] = useState(false);
-  const outputGoals = isSearch ? goals : data?.user.goals;
-  useEffect(() => {
-    if (data) {
-      setIsToken(true);
-    }
-  }, [data, setIsToken]);
+  if (isLoading) {
+    return <p>loading...</p>;
+  }
+  if (isError) {
+    console.log(error);
+  }
+
   return (
     <>
       <Header />
-      <main>
-        {data && (
-          <>
-            <GoalsNav
-              todoId={data.user.todos._id}
-              onBlur={() => setIsSearch(true)}
-            />
-            <p className="welcome-p">Hello, {data.user.username}</p>
+      {!isLoading && (
+        <main className="home-main">
+          {/* <AsideMenu /> */}
+          <div className="home-section">
+            <GoalsNav />
+            <p className="welcome-p">Hello, {username}</p>
             <div className="line"></div>
-            <section className="home-main">
-              <GoalsGrid goals={outputGoals} />
-              <GoalsStatistic goals={data.user.goals} />
-            </section>
-          </>
-        )}
-      </main>
+              <GoalsGrid goals={goals.goals} />
+             
+          </div>
+        </main>
+      )}
     </>
   );
 }
-export async function loader({ params, request }) {
-  const token = localStorage.getItem("token");
-  const URl = new URL(request.url);
-  const searchTerm = URl.searchParams.get("q");
-  console.log(searchTerm);
 
-  let url = "http://localhost:8080/goals/search?q=" + searchTerm;
-
-  console.log(searchTerm);
-  if (token) {
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    if (response.ok) {
-      console.log(data);
-    } else {
-      console.error(data.message);
-    }
-    return data;
-  }else{
-    if(searchTerm) throw json({message:'Unauthorized'}, {status:401});
-    else return null
-  }
-  
-}
-
-export async function action({ request }) {
-  const formData = await request.formData();
-  const goalId = formData.get("id");
-  const token = localStorage.getItem("token");
-  await fetch(`http://localhost:8080/goals/${goalId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return { m: "success" };
-}

@@ -1,13 +1,12 @@
 /* GOLA PAGE */
 .goal-main {
-    display: flex;
-    justify-content: space-around;
+    padding: 0 2.5rem;
     --progress: 0%;
     /* gap: 10%; */
 }
 
 .goal-details {
-    width: 65%;
+    width: 100%;
     color: var(--text-color);
     font-family: sans-serif;
 }
@@ -75,6 +74,10 @@
     width: 170px;
     aspect-ratio: 1;
     inset: 7%;
+}
+.progress-pie > p{
+    position: relative;
+    z-index: 999;
 }
 .progress{
     display: none;
@@ -218,14 +221,12 @@ a {
     text-align: center;
     font-weight: 700;
 }
-@media screen and (min-width:1400px){
-    .goal-main{
-        gap: 0;
-    }
+/* @media screen and (min-width:1400px){
+    
     .goal-details{
-        width: 51%;
+        width: 90%;
     }
-}
+} */
 @media screen and (min-width:1200px){
     .goals-stats-heading{
         font-size: 1.7rem;
@@ -258,11 +259,11 @@ a {
         width: 50%;
     }
 }
-@media screen and (max-width:800px){
+/* @media screen and (max-width:800px){
     .goal-details{
         width: 80%;
     }
-}
+} */
 @media screen and (max-width:580px){
     .goal-info{
         width: 100%;

@@ -1,44 +1,53 @@
+/* eslint-disable react/prop-types */
 import classes from "./Plan.module.css";
 import { useState } from "react";
-import { Form, useSubmit } from "react-router-dom";
 import CheckInput from "../UI/CheckInput";
 import { motion, AnimatePresence } from "framer-motion";
-export default function PlanStep({ p }) {
-  const submit = useSubmit();
+import { useDeleteStepMutation } from "../../features/goalPlan/goalPLanApi";
+export default function PlanStep({ p, goalId }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isChecked, setIsChecked] = useState(p.status);
-  console.log(p);
+  const [isChecked, setIsChecked] = useState(p.completed);
   const [editArea, setEditArea] = useState("");
-  function deleteSubmit(id) {
-    const formData = new FormData();
-    formData.append("id", id);
-    formData.append("actionType", "delete");
-    submit(formData, { method: "delete" });
+  const [deleteStep] = useDeleteStepMutation();
+  const [editStep] = useDeleteStepMutation();
+  async function deleteSubmit() {
+    try {
+      await deleteStep({goalId, stepId:p._id}).unwrap()
+    } catch (error) {
+      console.log(error)
+    }
   }
-  function editPlanStep(p) {
+
+  async function editPlanStep(p) {
     setIsEditing((prev) => !prev);
 
     if (isEditing) {
-      //'cause there state doesn't update immediatly, so it's kinda doing the opposite
-      console.log("save", isEditing);
-      const formData = new FormData();
-      formData.append("id", p._id);
-      formData.append("actionType", "edit");
-      formData.append("editStep", editArea);
-      submit(formData, { method: "patch" });
+      const data = {
+        title:editArea,
+        actionType:'edit',
+        id:p._id
+      }
+      try {
+       await editStep({goalId,data, stepId:p._id}).unwrap(); 
+      } catch (error) {
+        console.log(error)
+      }
     } else {
-      console.log("edit", p.step);
       setEditArea(p.step);
     }
   }
-  function editStepSatus(e) {
-    console.log(p._id, e.target.checked);
+  async function editStepSatus(e) {
     setIsChecked(e.target.checked);
-    const formData = new FormData();
-    formData.append("id", p._id);
-    formData.append("actionType", "check");
-    formData.append("status", e.target.checked);
-    submit(formData, { method: "patch" });
+    const data = {
+      completed:e.target.checked,
+      actionType:'check',
+      id:p._id
+    }
+    try {
+      await editStep({goalId,data, stepId:p._id}).unwrap(); 
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <AnimatePresence>
@@ -48,21 +57,15 @@ export default function PlanStep({ p }) {
         animate={{ height: "auto", opacity: 1 }}
         exit={{ height: 0, opacity: 0 }}
       >
-        <Form method="patch">
+        <form method="patch">
           {!isEditing && (
             <label className={classes["plan-label"]}>
-              {/* <input
-              type="checkbox"
-              name="stepStatus"
-              id="step"
-              onChange={editStepSatus}
-            /> */}
               <CheckInput
                 checkHandler={editStepSatus}
-                inputName="stepStatus"
+                inputName="stepcompleted"
                 isChecked={isChecked}
               />
-              <span>{p.step}</span>
+              <span>{p.title}</span>
             </label>
           )}
           {isEditing && (
@@ -85,13 +88,13 @@ export default function PlanStep({ p }) {
             </button>
             <button
               type="button"
-              onClick={() => deleteSubmit(p._id)}
+              onClick={() => deleteSubmit()}
               className={classes["del-btn"]}
             >
               <i className="bi bi-trash3"></i>
             </button>
           </div>
-        </Form>
+        </form>
       </motion.li>
     </AnimatePresence>
   );

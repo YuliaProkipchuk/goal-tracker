@@ -1,7 +1,29 @@
 const mongoose = require('mongoose');
-const { GoalSchema } = require('./goal');
 const Schema = mongoose.Schema;
-const userSchema = new mongoose.Schema({
+
+const ActivityDate = new Schema({
+    date:Date,
+    count:{
+        type:Number,
+        default:1
+    }
+})
+const GoalsActivitiesSchema = new Schema({
+    goalName:String,
+    goalId:{
+        type: Schema.Types.ObjectId,
+        ref: 'Goal'
+    },
+    activityDates:[ActivityDate]
+},{timestamps:true})
+const UserActivitiesSchema = new Schema({
+    totalGoals:Number,
+    completed:Number,
+    inProgress:Number,
+    goalsActivities:[GoalsActivitiesSchema]
+})
+
+const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'Name is required']
@@ -21,15 +43,15 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         min:[6, 'Password must have at least 6 characters']
     },
-    image: String,
+    image: {
+        type:String,
+        default:''
+    },
     goals: [{
         type: Schema.Types.ObjectId,
         ref: 'Goal'
     }],
-    todos: {
-        type: Schema.Types.ObjectId,
-        ref: 'Todo'
-    }
+    userActivities:UserActivitiesSchema
 });
 const User = mongoose.model('User', userSchema);
 module.exports = User; 

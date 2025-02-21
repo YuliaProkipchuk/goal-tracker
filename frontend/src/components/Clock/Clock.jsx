@@ -16,10 +16,10 @@ export default function Clock() {
       });
     };
 
-    const d = 60 - new Date().getSeconds(); // Час до наступної хвилини
+    const d = 60 - new Date().getSeconds();
     timer.current = setTimeout(() => {
-      updateClock(); // Оновлюємо час на нову хвилину
-      timer.current = setInterval(updateClock, 60000); // Оновлюємо кожну хвилину
+      updateClock();
+      timer.current = setInterval(updateClock, 60000);
     }, d * 1000);
 
     return () => {

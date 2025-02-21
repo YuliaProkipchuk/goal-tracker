@@ -1,26 +1,14 @@
-import { useLoaderData } from "react-router-dom";
-import classes from '../components/Notes/Notes.module.css';
-export default function NotePage(){
-    const note = useLoaderData();
-    
-    return <>
-    <section className={classes["note-section"]}>
+import classes from "../components/Notes/Notes.module.css";
+import { useGetNoteByIdQuery } from "../features/notes/notesApiSlice";
+export default function NotePage() {
+  const { data: note } = useGetNoteByIdQuery();
+
+  return (
+    <>
+      <section className={classes["note-section"]}>
         <h1>{note.title}</h1>
-        <div className=""  dangerouslySetInnerHTML={{ __html: note.text }}></div>
-    </section>
+        <div className="" dangerouslySetInnerHTML={{ __html: note.body }}></div>
+      </section>
     </>
-}
-export async function loader({params}){
-    const token = localStorage.getItem('token');
-    const id = params.noteId;
-    const response = await fetch(
-      `http://localhost:8080/goals/${params.goalId}/notes/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response;
+  );
 }

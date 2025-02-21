@@ -1,27 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../NewGoal/Modal";
 import classes from "./GoalsNav.module.css";
 import { Link, useSubmit } from "react-router-dom";
 import SearchBar from "../UI/SearchBar";
-export default function GoalsNav({ todoId, onBlur}) {
+import { useDebounce } from "../../hooks/useDebounce";
+// import { useGetUserTodosIdQuery } from "../../features/todo/todoApiSlice";
+export default function GoalsNav() {
+   
   const [isOpen, setIsOpen] = useState(false);
-  // console.log(todoId)
   const [searchTerm, setSearchTerm] = useState('')
-  const timer = useRef();
+
   const submit = useSubmit()
+  const debouncedValue = useDebounce(searchTerm)
+
+  // const {data} = useGetUserTodosIdQuery()
+  
+  // console.log('todoId: ', data);
+  
   useEffect(()=>{
-    timer.current = setTimeout(()=>{
-      console.log('stopped typing')
-      console.log(searchTerm);
-      // if(searchTerm.trim()!==''){
-        let searchParams = new URLSearchParams();
-        searchParams.append("q", searchTerm);
-        submit(searchParams);
-      // }
-      
-    },1000);
-    return ()=>clearTimeout(timer.current)
-  },[searchTerm])
+    console.log(debouncedValue);
+    let searchParams = new URLSearchParams();
+    searchParams.append("q", debouncedValue);
+    submit(searchParams)
+  },[debouncedValue, submit])
+ 
   function closeModal() {
     setIsOpen(false);
   }
@@ -30,12 +32,12 @@ export default function GoalsNav({ todoId, onBlur}) {
       {isOpen && <Modal closeModal={closeModal} openModal={isOpen} />}
       <div className={classes["goals-menu"]}>
         <div className={classes.options}>
-          <Link to={`todo/${todoId}`}>To Do</Link>
+          <Link to={`/todo`}>To Do</Link>
           <span onClick={() => setIsOpen(true)}>Add Goal</span>
           {/* <span>Delete Goals</span> */} 
         </div>
 
-        <SearchBar className={classes.size} onChange={(e)=>{setSearchTerm(e.target.value)}} onBlur={onBlur}/>
+        <SearchBar className={classes.size} onChange={(e)=>{setSearchTerm(e.target.value)}} />
       </div>
     </>
   );

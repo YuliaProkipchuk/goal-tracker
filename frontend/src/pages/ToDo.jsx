@@ -1,37 +1,21 @@
-import { json, useLoaderData } from "react-router-dom";
+import {useState } from "react";
 import ToDoList from "../components/ToDo/ToDoList";
-import Book from "../components/UI/Book";
-import { createContext, useState } from "react";
-import AsideMenu from "../components/AsideMenu/AsideMenu";
-
-export const TodoDateContext = createContext();
+import { useGetTodoQuery } from "../features/todos/todoApiSlice";
 
 export default function ToDoPage() {
-  const loaderData = useLoaderData();
+  const [newDate, setNewDate] = useState(new Date());
 
-  const [currTodo, setCurrToDo] = useState(new Date());
-
+  const { data, isError, isFetching } = useGetTodoQuery({
+    year: newDate.getFullYear(),
+    month: newDate.getMonth() + 1,
+    day: newDate.getDate(),
+  });
+  console.log(data);
+  if (isFetching) return <p>Loading...</p>;
+  if (isError) return <p>Error</p>;
   return (
-    <TodoDateContext.Provider value={{ currTodo, setCurrToDo }}>
-      <main className="todo-main">
-        {loaderData ? <ToDoList /> : <p>Loading...</p>}
-      </main>
-    </TodoDateContext.Provider>
+    <main className="todo-main">
+      <ToDoList tasks={data.tasks} newDate={newDate} setNewDate={setNewDate} />
+    </main>
   );
-}
-export async function loader({ params }) {
-  const token = localStorage.getItem("token");
- 
-    const response = await fetch(`http://localhost:8080/todo/${params.todoId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-   if (!response.ok) {
-        throw json({ message: 'Could not fetch to do' }, { status: 500 })
-    }
-    else {
-        return response;
-    }
 }

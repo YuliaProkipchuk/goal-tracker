@@ -10,6 +10,7 @@
   --peach-cl: #EF9C66;
   --light-peach-cl: #FCDC94;
   --gray: #5a5a5a;
+  --aside-width:220px;
 }
 
 body {
@@ -169,12 +170,12 @@ button:hover {
   cursor: pointer;
 }
 
-
 .home-main {
-  display: flex;
-  width: 85%;
-  margin: auto;
-  flex-wrap: wrap-reverse;
+  width: 100%;
+  padding: 0 2.5rem;
+}
+.home-section{
+  width: 100%;
 }
 
 .profile-main {

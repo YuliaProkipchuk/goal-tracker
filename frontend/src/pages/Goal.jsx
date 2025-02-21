@@ -1,9 +1,22 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classes from "../components/Goals/Goal.module.css";
+import { useGetGoalByIdQuery } from "../features/goals/goalApiSlice";
+import PlanSection from "../components/Plan/PlanSection";
 export default function GoalPage() {
-  const goal = useRouteLoaderData("goal");
-  console.log(goal);
-  const date = new Date(goal.create_date);
+  const { goalId } = useParams();
+
+  const { data, isLoading, isError, error } = useGetGoalByIdQuery(goalId);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    console.log(error);
+
+    return <p>{error.data.message}</p>;
+  }
+  const { goal } = data;
+  console.log(goal, goal.completed.toFixed(1));
+  const date = new Date(goal.createdAt);
 
   return (
     <>
@@ -22,7 +35,7 @@ export default function GoalPage() {
           >
             <p>{goal.completed.toFixed(1)}%</p>
           </div>
-          <div className={classes['progress']}>
+          <div className={classes["progress"]}>
             Progress
             <div className={classes["progress-bar"]}>
               <div
@@ -32,6 +45,8 @@ export default function GoalPage() {
             </div>
           </div>
         </div>
+
+        <PlanSection goalId={goalId}/>
       </section>
     </>
   );

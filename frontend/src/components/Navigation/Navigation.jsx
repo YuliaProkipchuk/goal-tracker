@@ -1,54 +1,52 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import classes from "./Navigation.module.css";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Root";
-// import authToken from "../../../../backend/util/verify";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectToken } from "../../features/auth/authSlice";
+import { useLogoutMutation } from "../../features/auth/authApiSlice";
+
 export default function Navigation() {
-  let [isToken, setIsToken] = useState(false);
+  const token = useSelector(selectToken);
+  const [sendLogout, { isLoading }] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const { isToken, setIsToken } = useContext(AuthContext);
-  const data = useContext(AuthContext);
-
-  console.log(data);
-  
-  if(data){
-    isToken = data.isToken;
-    setIsToken = data.setIsToken;
-
+  async function handleLogOut() {
+    try {
+      await sendLogout();
+      dispatch(logout);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   }
-  //   const token = localStorage.getItem("token");
-  //   const [IsToken, setIsToken] = useState(false)
-  function handleLogOut() {
-    localStorage.removeItem("token");
-    setIsToken(false);
-  }
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsToken(token ? true : false);
-  }, [isToken]);
+
   return (
     <nav>
-      <NavLink to="/">
+      <NavLink to={token ? "/home" : "/"}>
         <span className={classes.logo}>GTrack</span>
       </NavLink>
       <ul className={classes.mainNav}>
         <li>
-          {isToken && (
-            <NavLink to='/profile'>
+          {token && (
+            <NavLink to="/profile">
               <span>PROFILE</span>
             </NavLink>
           )}
-        </li> 
+        </li>
         <li>
-          {isToken ? (
-            <NavLink to="/">
-              <span className={classes.logSpan} onClick={handleLogOut}>
-                Log Out
-              </span>
-            </NavLink>
+          {token ? (
+            <span
+              className={classes.logSpan}
+              onClick={handleLogOut}
+              aria-disabled={isLoading}
+            >
+              Log Out
+            </span>
           ) : (
             <NavLink to="/auth">
-              <span className={classes.logSpan}>Log In</span>
+              <span className={classes.logSpan} aria-disabled={isLoading}>
+                Log In
+              </span>
             </NavLink>
           )}
         </li>

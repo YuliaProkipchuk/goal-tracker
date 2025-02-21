@@ -1,5 +1,5 @@
 .plan-page {
-  width: 51%;
+  width: 100%;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -187,7 +187,7 @@ form:has(>div.addStep_form) {
   border-bottom: 2px solid var(--accent);
 }
 
-@media screen and (max-width:1400px) {
+/* @media screen and (max-width:1400px) {
   .plan-page {
     width: 70%;
   }
@@ -197,13 +197,13 @@ form:has(>div.addStep_form) {
   .plan-page {
     width: 90%;
   }
-}
+} */
 
-@media screen and (max-width:800px) {
+/* @media screen and (max-width:800px) {
   .plan-page {
     width: 100%;
   }
-}
+} */
 
 @media screen and (max-width:500px) {
   .plan-item {

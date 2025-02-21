@@ -1,111 +1,83 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 const Schema = mongoose.Schema;
-// export const WORDS = [
-//     {
-//         id: 1,
-//         word: '개',
-//         translation: 'собака'
-//     }
-// ]
-// const LANGUAGES = [
-//     {
-//         id:'1112sdfgtggttfSS',
-//         name: 'Learn Korean',
-//         type: 'language',
-//         create_date: new Date('2024-06-24'),
-//         image: '',
-//         toDo: [
-//             {
-//                 date: new Date('2024-07-02'),
-//                 tasks:[
-//                     {
-//                         name: 'Learn 10 words',
-//                         complete: true, 
-//                     },
-//                     {
-//                         name: 'Read 2 texts',
-//                         complete: true
-//                     }
-//                 ]
-//             },
-//             {
-//                 date: new Date('2024-07-03'),
-//                 tasks:[]
-//             }
-//         ],
-//         dictionary:WORDS,
-//     }
-// ];
-// export const GOALS = [...LANGUAGES]
 
-// const LanguageSchema = new Schema({
-//     dictionary: [
-//         {
-//             word: String,
-//             translation: String
-//         }
-//     ]
-// },
-//     { _id: false })
-// const ITSchema = new Schema({
-
-// })
-// const GeneralSchema = new Schema({
-
-// })
 const GoalSchema = new Schema({
-    name: {
-      type: String,
-      required: [true, 'Goal name is required!']
+  name: {
+    type: String,
+    required: [true, 'Goal name is required!']
   },
-    description: {
-      type: String,
-      required: [true, 'Description is required!']
+  description: {
+    type: String,
+    default: ''
   },
-    type: {
-      type:String,
-      enum:['education', 'health', 'sport', 'travel', 'career', 'other'],
-      default:'other'
-    },
-    create_date: Date,
-    image: String,
-    plan: [{
-        step: String,
-        status: Boolean
-    }],
-    
-    notes: [{
-      title:String,
-      text:String,
-      date: Date
-    }],
-    completed: Number
-    // goal: Schema.Types.Mixed,
-    // userId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'User'  // Посилання на модель користувача
-    // }
-});
-// GoalSchema.pre('save', function (next) {
-//     if (!this.goal) {
-//       switch (this.type) {
-//         case 'language':
-//           this.goal = new mongoose.model('Language', LanguageSchema)().toObject();
-//           break;
-//         case 'it':
-//           this.goal = new mongoose.model('IT', ITSchema)().toObject();
-//           break;
-//         case 'general':
-//           this.goal = new mongoose.model('General', GeneralSchema)().toObject();
-//           break;
-//         default:
-//           return next(new Error('Invalid goal type'));
-//       }
-//     }
-//     next();
-//   });   
+  type: {
+    type: String,
+    enum: ['education', 'health', 'sport', 'travel', 'career', 'other'],
+    default: 'other'
+  },
+  due_date: Date,
+  plan: [{
+    title: String,
+    // description: String,
+    // status: {
+    //   type: String,
+    //   enum: ['to do', 'in progress', 'completed'],
+    //   default: 'to do'
+    // },
+    completed: Boolean,
+    // priority: { type: Number, min: 1, max: 5, default: 5 }
+  }],
+
+  completed: { type: Number, default: 0 },
+
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  }
+}, { timestamps: true });
+
+GoalSchema.pre('save', async function (next) {
+  if (this.isNew) {
+    try {
+      const user = await User.findById(this.userId);
+
+      // await User.findByIdAndUpdate(this.userId, { $push: { goals: this._id } });
+      user.goals.push(this._id)
+      user.userActivities.totalGoals++;
+      user.userActivities.inProgress++;
+      user.userActivities.goalsActivities.push({ goalName: this.name, goalId: this._id, activityDates: [{ date: new Date(), count: 1 }] })
+      await user.save()
+      next();
+    } catch (error) {
+      next(error);
+    }
+
+  }
+  else next();
+})
+
+GoalSchema.pre('findOneAndDelete', async function (next) {
+  try {
+    const goal = await this.model.findOne(this.getQuery());
+    console.log(this, goal);
+
+    const user = await User.findById(goal.userId);
+
+    if (user) {
+      user.goals = user.goals.filter(g => g.toString() !== goal._id.toString());
+
+
+      await user.save();
+    }
+    next();
+
+  } catch (error) {
+    next(error);
+  }
+
+})
+
 const Goal = mongoose.model('Goal', GoalSchema);
 module.exports = Goal;
-exports.GoalSchema = GoalSchema;
-// module.exports = {GoalSchema}; 

@@ -1,46 +1,63 @@
+/* eslint-disable react/prop-types */
 import { useRef, useState } from "react";
 import classes from "./Notes.module.css";
 import NoteModal from "./NoteModal";
-import { useNavigate, useSubmit } from "react-router-dom";
-export default function Note({ n }) {
-  const submit = useSubmit();
+import { useNavigate } from "react-router-dom";
+import { useDeleteNoteMutation } from "../../features/notes/notesApiSlice";
+export default function Note({ note }) {
+  const [deleteNote] = useDeleteNoteMutation();
   const [isOpen, setIsOpen] = useState(false);
+
   const delRef = useRef(null);
   const editRef = useRef(null);
+
   const navigate = useNavigate();
-  const date = new Date(n.date);
-  // console.log(todoId)
+
+  const date = new Date(note.date);
+
   function closeModal() {
     setIsOpen(false);
   }
-  function handleDelete(e) {
-    e.stopPropagation();
-    const formData = new FormData();
-    formData.append("actionType", "delete");
-    formData.append("id", n._id);
-    submit(formData, { method: "delete" });
-  }
-  function openNote(e, id){
-    if (!e.target.id.includes('del')&&!e.target.id.includes('edit')) {      
-      navigate(`${id}`)
+  function openNote(e, id) {
+    if (!e.target.id.includes("del") && !e.target.id.includes("edit")) {
+      navigate(`${id}`);
     }
   }
+
+  async function handleDelete(e) {
+    e.stopPropagation();
+
+    try {
+      await deleteNote(note._id).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {isOpen && (
-        <NoteModal closeModal={closeModal} openModal={isOpen} note={n} />
+        <NoteModal closeModal={closeModal} openModal={isOpen} note={note} />
       )}
 
-      <div className={classes.note} onClick={(e)=>openNote(e,n._id)} >
+      <div className={classes.note} onClick={(e) => openNote(e, note._id)}>
         <div className={classes.del_btn} onClick={handleDelete} ref={delRef}>
-          <i className="bi bi-trash3" id='delete'></i>
+          <i className="bi bi-trash3" id="delete"></i>
         </div>
-        <div className={classes.edit_btn} onClick={() =>{console.log('edit'); setIsOpen(true)}} ref={editRef} id="edit_btn">
-          <i className="bi bi-pencil" id='edit'></i>
+        <div
+          className={classes.edit_btn}
+          onClick={() => {
+            console.log("edit");
+            setIsOpen(true);
+          }}
+          ref={editRef}
+          id="edit_btn"
+        >
+          <i className="bi bi-pencil" id="edit"></i>
         </div>
-        {n.title && <p className={classes.noteTitle}>{n.title}</p>}
+        {note.title && <p className={classes.noteTitle}>{note.title}</p>}
         <p
-          dangerouslySetInnerHTML={{ __html: n.text }}
+          dangerouslySetInnerHTML={{ __html: note.body }}
           className={classes.noteText}
           aria-multiline
           role="textbox"
@@ -53,13 +70,4 @@ export default function Note({ n }) {
       </div>
     </>
   );
-}
-export async function deleteNote(url, token) {
-  await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
 }

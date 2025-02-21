@@ -169,7 +169,7 @@ dialog form {
 }
 
 .cancel_btn {
-    background: #6a19ada3;
+    background: #6a19ad1d;
     color: #fff;
 }
 
@@ -177,14 +177,15 @@ dialog form {
 .cancel_btn:hover {
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.5);
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* .add_btn:hover{
-    background-color: #6d9a97;
+.add_btn:hover{
+    background-color: #4d0289;
 }
 .cancel_btn:hover{
-    background-color: #4f5454;
-} */
+    background-color: #6a19ada8;
+}
 .div_btn {
     height: 60px;
     width: 100%;

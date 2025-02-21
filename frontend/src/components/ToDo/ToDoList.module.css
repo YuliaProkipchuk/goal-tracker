@@ -7,7 +7,7 @@
 }
 .addInput{
     height: 35px;
-    width: 60%;
+    width: 40%;
     color: var(--text-color);
     background-color: var(--main-background);
     border-radius: 15px;
@@ -86,7 +86,7 @@
 }
 .toDo-grid>form{
     grid-column: 1 / 3;
-    width: 70%;
+    width: 100%;
 }
 .date {
     display: flex;

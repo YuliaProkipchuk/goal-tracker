@@ -6,7 +6,10 @@ export default function GoalsGrid({ goals }) {
   return (
     <>
       {!goals.length ? (
-        <p className={classes.fallback_message}>There is not anything here</p>
+        <div className={classes.fallback}>
+          <p className={classes.fallback_message}>There is not anything here</p>
+        </div>
+        
       ) : (
         <div className={classes.grid}>
           {goals.map((goal) => <Goal key={goal._id} goal={goal} />)}

@@ -1,9 +1,10 @@
-import { Link, useNavigate, useSubmit } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Link, useSubmit } from "react-router-dom";
 import PseudoImg from "../UI/PseudoImg";
 import classes from "./Goal.module.css";
 import { useState } from "react";
 export default function Goal({ goal }) {
-  const date = new Date(goal.create_date);
+  const date = new Date(goal.createdAt);
   const submit = useSubmit();
   const [openMenu, setOpenMenu] = useState(false);
 

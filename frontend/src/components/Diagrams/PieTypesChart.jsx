@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
-
-// let TYPES = {};
-// const TYPESData = [];
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 
 const COLORS = ["#3a264a", "#8c00ff", "#3d036d", "#ab69c3",'#714793','#380136'];
 const RADIAN = Math.PI / 180;
@@ -17,11 +15,9 @@ function countGoalTypes(goals) {
     }
   });
   Object.entries(types).forEach(([key, val]) => {
-    // console.log(key, val);
 
     typesData.push({ name: key, value: val });
   });
-  // console.log(typesData);
   return typesData
 }
 const renderCustomizedLabel = ({
@@ -66,7 +62,6 @@ export default function PieTypeCharts({ goals }) {
  const data = countGoalTypes(goals);
   return (
     <>
-      {/* <ResponsiveContainer width="300px" height="300px"> */}
       <PieChart width={400} height={300}>
         <Pie
           data={data}
@@ -83,7 +78,6 @@ export default function PieTypeCharts({ goals }) {
           ))}
         </Pie>
       </PieChart>
-      {/* </ResponsiveContainer> */}
     </>
   );
 }

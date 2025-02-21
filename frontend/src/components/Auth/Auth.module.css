@@ -20,6 +20,7 @@
     align-items: center;
     font-family: sans-serif;
     position: relative;
+
 }
 .form-field i{
     position: absolute;
@@ -35,11 +36,13 @@
     padding: 10px;
     padding-left: 36px;
     box-sizing: border-box;
-    border: 2px solid #B1B1B1; /* Сіре обрамлення */
-    border-radius: 8px; /* Заокруглені краї */
-    font-size: 16px; /* Розмір шрифту */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    border: 2px solid #B1B1B1; 
+    border-radius: 8px; 
+    font-size: 16px; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
     transition: border-color 0.3s, box-shadow 0.3s;
+    color: var(--gray);
+
 }
 .form-field input::placeholder{
     font-size: 1.1rem;
