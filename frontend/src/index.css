@@ -21,17 +21,7 @@
   align-items: center;
 }
 
-/* #dialog dialog{
-  margin: auto;
-  min-height: 550px;
-  min-width: 700px;
-  border: none;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.7);
-  padding: 20px;
 
-} */
 #dialog dialog::backdrop {
   background: rgba(0, 0, 0, 0.7);
 }
