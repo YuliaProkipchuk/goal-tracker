@@ -187,6 +187,38 @@ form:has(>div.addStep_form) {
   border-bottom: 2px solid var(--accent);
 }
 
+.kanban{
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  margin: 0px auto;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.kanban-section{
+  width: 30%;
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 10px 15px;
+  min-height: 300px;
+}
+.kanban-section .wrapper{
+  background: none;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 70px;
+}
+.draggable-plan-step{
+  background-color: #151425;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  min-height: 70px;
+  margin: 10px 0;
+}
 /* @media screen and (max-width:1400px) {
   .plan-page {
     width: 70%;

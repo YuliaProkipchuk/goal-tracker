@@ -10,6 +10,15 @@ function calculateProgress(plan) {
     return (complete / total) * 100;
 }
 
+const getSubTasks = async (req, res, next) => {
+    const id = req.originalUrl.split('/')[2];
+    try{
+        const goal = await Goal.findById(id);
+        res.status(200).json(goal.plan)
+    }catch(error){
+        next(error);
+    }
+}
 const addSubTask = async (req, res, next) => {
     const id = req.originalUrl.split('/')[2];
     try {
@@ -69,5 +78,6 @@ const deleteSubTask = async (req, res, next) => {
 module.exports = {
     addSubTask,
     editSubTask,
-    deleteSubTask
+    deleteSubTask,
+    getSubTasks
 }

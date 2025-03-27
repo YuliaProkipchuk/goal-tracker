@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 const User = require('./user');
 const Schema = mongoose.Schema;
-
+const ActivityDate = new Schema({
+  date:Date,
+  count:{
+      type:Number,
+      default:1
+  }
+}, { _id : false })
 const GoalSchema = new Schema({
   name: {
     type: String,
@@ -19,24 +25,25 @@ const GoalSchema = new Schema({
   due_date: Date,
   plan: [{
     title: String,
-    // description: String,
-    // status: {
-    //   type: String,
-    //   enum: ['to do', 'in progress', 'completed'],
-    //   default: 'to do'
-    // },
+    description: String,
+    status: {
+      type: String,
+      enum: ['to do', 'in progress', 'completed'],
+      default: 'to do'
+    },
     completed: Boolean,
-    // priority: { type: Number, min: 1, max: 5, default: 5 }
+    priority: { type: Number, min: 1, max: 5, default: 5 }
   }],
 
   completed: { type: Number, default: 0 },
-
+  activityDates:[ActivityDate],
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   }
 }, { timestamps: true });
+
 
 GoalSchema.pre('save', async function (next) {
   if (this.isNew) {
@@ -45,9 +52,10 @@ GoalSchema.pre('save', async function (next) {
 
       // await User.findByIdAndUpdate(this.userId, { $push: { goals: this._id } });
       user.goals.push(this._id)
-      user.userActivities.totalGoals++;
-      user.userActivities.inProgress++;
-      user.userActivities.goalsActivities.push({ goalName: this.name, goalId: this._id, activityDates: [{ date: new Date(), count: 1 }] })
+      user.totalGoals++;
+      user.inProgress++;
+      
+      // user.userActivities.goalsActivities.push({ goalName: this.name, goalId: this._id, activityDates: [{ date: new Date(), count: 1 }] })
       await user.save()
       next();
     } catch (error) {
@@ -67,7 +75,12 @@ GoalSchema.pre('findOneAndDelete', async function (next) {
 
     if (user) {
       user.goals = user.goals.filter(g => g.toString() !== goal._id.toString());
-
+      user.totalGoals--;
+      if(this.completed<100){
+        user.inProgress--;
+      }else{
+        user.completed--;
+      }
 
       await user.save();
     }

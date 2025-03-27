@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import classes from "../components/Goals/Goal.module.css";
 import { useGetGoalByIdQuery } from "../features/goals/goalApiSlice";
-import PlanSection from "../components/Plan/PlanSection";
 export default function GoalPage() {
   const { goalId } = useParams();
 
@@ -45,8 +44,7 @@ export default function GoalPage() {
             </div>
           </div>
         </div>
-
-        <PlanSection goalId={goalId}/>
+            <Link to={'plan'}><p className={classes["plan-link"]}>Plan <i className="bi bi-arrow-right"></i></p></Link>
       </section>
     </>
   );

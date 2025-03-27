@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../features/authSlice'
+import authReducer from '../features/auth/authSlice'
 import goalsIdReducer from '../features/goals/goalSlice'
 import { apiSlice } from '../services/api'
 import { setupListeners } from '@reduxjs/toolkit/query'

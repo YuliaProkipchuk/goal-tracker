@@ -11,6 +11,7 @@ import ProfilePage from "./pages/Profie";
 import ErrorPage from "./pages/Error";
 import MainPage from "./pages/Main";
 import PersistLogin from "./pages/PersistLogin";
+import PlanPage from "./pages/Plan";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,10 @@ export const router = createBrowserRouter([
             path: "goals/:goalId",
             element: <GoalRoot />,
             id: "goal",
-            children: [{ index: true, element: <GoalPage /> }],
+            children: [
+              { index: true, element: <GoalPage /> },
+              { path: "plan", element: <PlanPage /> },
+            ],
           },
           {
             path: "notes",

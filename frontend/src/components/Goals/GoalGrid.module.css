@@ -20,4 +20,11 @@
     .grid{
         margin-right: 0;
     }
+
+}
+@media screen and (min-width:1000px){
+    .grid{
+        grid-template-columns: repeat(3, 30%);
+
+    }
 }

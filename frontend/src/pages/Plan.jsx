@@ -1,15 +1,11 @@
-// import { useEffect, useRef, useState } from "react";
-// import {
-//   Form,
-//   useActionData,
-//   useRouteLoaderData,
-//   useSubmit,
-// } from "react-router-dom";
-// import PlanStep from "../components/Plan/PlanStep";
-// import AddInput from "../components/Plan/AddInput";
-// import { motion, AnimatePresence } from "framer-motion";
-// import classes from '../components/Plan/Plan.module.css';
-// export default function PlanPage() {
+import { useParams } from "react-router-dom";
+import PlanSection from "../components/Plan/PlanSection";
+
+export default function PlanPage() {
+    const { goalId } = useParams();
+    return <>
+        <PlanSection goalId={goalId}/>
+    </>
 //   const r = useRef(null);
 //   const plan = useRouteLoaderData("goal")?.plan;
 //   console.log(plan);
@@ -20,7 +16,7 @@
 //       r.current.reset();
 //     }
 //   }, [actionData]);
-
+    
 //   return (
 //     <section className={classes["plan-page"]}>
 //       <h1>Goal Progress</h1>
@@ -50,7 +46,7 @@
 //       </div>
 //     </section>
 //   );
-// }
+}
 // export async function action({ request, params }) {
 //   const { goalId } = params;
 //   const url = `http://localhost:8080/goals/${goalId}/plan`;

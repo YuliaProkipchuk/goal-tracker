@@ -37,7 +37,8 @@ const createGoal = async (req, res, next) => {
             description,
             type,
             userId: id,
-            plan: []
+            plan: [],
+            activityDates:[{ date: new Date(), count: 1 }]
         }
         if (due_date) {
             newGoal.due_date = due_date
@@ -55,7 +56,7 @@ const createGoal = async (req, res, next) => {
 const deleteGoal = async (req, res, next) => {
     try {
         await Goal.findByIdAndDelete(req.params.id);
-        res.status(204).json({ m: 'ok' });
+        res.status(204).json({message:'Goal was successfully deleted' });
 
     } catch (error) {
         next(error)
