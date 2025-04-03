@@ -49,13 +49,11 @@ GoalSchema.pre('save', async function (next) {
   if (this.isNew) {
     try {
       const user = await User.findById(this.userId);
-
-      // await User.findByIdAndUpdate(this.userId, { $push: { goals: this._id } });
+      
       user.goals.push(this._id)
       user.totalGoals++;
       user.inProgress++;
-      
-      // user.userActivities.goalsActivities.push({ goalName: this.name, goalId: this._id, activityDates: [{ date: new Date(), count: 1 }] })
+    
       await user.save()
       next();
     } catch (error) {
