@@ -20,14 +20,15 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     id: "user",
     children: [
-      {
-        index: true,
-        element: <MainPage />,
-      },
+     
       { path: "auth", element: <AuthenticationPage /> },
       {
         element: <PersistLogin />,
         children: [
+          {
+            index: true,
+            element: <MainPage />,
+          },
           {
             path: "home",
             element: <HomePage />,

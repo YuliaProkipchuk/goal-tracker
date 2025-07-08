@@ -37,21 +37,15 @@ const addSubTask = async (req, res, next) => {
 const editSubTask = async (req, res, next) => {
     const id = req.originalUrl.split('/')[2];
     const { stepId } = req.params;
-    const { actionType } = req.body;
+    const { status } = req.body;
+    console.log(req.body)
     try {
         const goal = await Goal.findById(id)
-        goal.plan.forEach(p => {
-            if (p._id.toString() === stepId) {
-                if (actionType === 'edit') {
-                    p.step = req.body.step;
-                }
-                else {
-                    p.status = req.body.status;
-
-                }
-            }
-        })
-        goal.completed = calculateProgress(goal.plan);
+        const plan = goal.plan.find(el=>el._id.toString()===stepId);
+        if(plan){
+            plan.status=status
+        }
+        // goal.completed = calculateProgress(goal.plan);
         await goal.save();
 
     } catch (err) {

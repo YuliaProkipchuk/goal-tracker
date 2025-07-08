@@ -8,8 +8,10 @@
   font-family: sans-serif;
 }
 
-.plan-page h1 {
-  font-size: 3rem;
+.plan-page-heading {
+  font-size: 1.5rem;
+  align-self: self-start;
+  padding-left: 3rem;
   color: var(--text-color);
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -20,21 +22,23 @@
   animation-delay: 3s;
 }
 
-.plan-page h1::before,
-.plan-page h1::after {
+.plan-page-heading::before,
+.plan-page-heading::after {
   content: 'goal progress';
   text-transform: uppercase;
+  padding-left: 3rem;
+
   position: absolute;
   left: 0;
   top: 0;
   animation: fade 3s linear infinite;
 }
 
-.plan-page h1::before {
+.plan-page-heading::before {
   animation-delay: 1s;
 }
 
-.plan-page h1::after {
+.plan-page-heading::after {
   animation-delay: 2s;
 }
 
@@ -195,6 +199,8 @@ form:has(>div.addStep_form) {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  min-height: 300px;
+
 }
 .kanban-section{
   width: 30%;
@@ -212,12 +218,29 @@ form:has(>div.addStep_form) {
   min-height: 70px;
 }
 .draggable-plan-step{
+  --color:transparent;
   background-color: #151425;
   border-radius: 8px;
   padding: 10px 15px;
   font-size: 1.1rem;
   min-height: 70px;
   margin: 10px 0;
+  border-left: 4px solid var(--color);
+}
+.blue{
+  --color: #55dcfa;
+}
+.green{
+  --color: #55fa65;
+}
+.yellow{
+  --color: #fae955;
+}
+.orange{
+  --color: #f5895b;
+}
+.red{
+  --color: #e87272;
 }
 /* @media screen and (max-width:1400px) {
   .plan-page {
