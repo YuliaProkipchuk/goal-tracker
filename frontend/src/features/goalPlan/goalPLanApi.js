@@ -3,33 +3,27 @@ import { apiSlice } from "../../services/api";
 export const goalPLanApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getPlan: builder.query({
-            query: (goalId) => `goals/${goalId}/plan`,
-            providesTags:['Plan']
+            query: (goalId) => `goals/${goalId}/plan`
         }),
         addStep: builder.mutation({
             query: ({ goalId, data }) => ({
                 url: `goals/${goalId}/plan/new`,
                 method: 'POST',
                 body: { ...data }
-            }),
-            invalidatesTags:['Plan']
+            })
         }),
         mutateStep: builder.mutation({
-            query: ({ goalId, status, stepId }) => ({
+            query: ({ goalId, data, stepId }) => ({
                 url: `goals/${goalId}/plan/${stepId}`,
                 method: 'PATCH',
-                body: {status}
-            }),
-            invalidatesTags:['Plan']
-
+                body: { ...data }
+            })
         }),
         deleteStep: builder.mutation({
             query:({goalId, stepId})=>({
                 url: `goals/${goalId}/plan/${stepId}`,
                 method:'DELETE'
-            }),
-            invalidatesTags:['Plan']
-
+            })
         })
     })
 })
