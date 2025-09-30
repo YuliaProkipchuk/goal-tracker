@@ -5,7 +5,6 @@ export default function Droppable(props) {
   const {setNodeRef} = useDroppable({
     id: props.id,
   });
-  // console.log("Droppable registered:", props.id, "isOver:", isOver);
   
   
   return (

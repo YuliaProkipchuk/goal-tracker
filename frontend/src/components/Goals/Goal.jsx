@@ -34,7 +34,6 @@ export default function Goal({ goal }) {
 
       <Link to={`/goals/${goal._id}`}>
         <div className={classes.goal}>
-          {/* <img /> */}
           <PseudoImg type={goal.type}/>
           <div className={classes.goal_info}>
             {" "}

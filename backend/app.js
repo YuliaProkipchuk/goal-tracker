@@ -58,7 +58,6 @@ app.patch('/profile',upload.single('imageFile'), authToken, async (req, res) => 
   const id = req.user.id;
   const jsonData = JSON.parse(req.body.data);
   const user = await User.findById(id);
-  console.log(jsonData);
   user.username = jsonData.username;
   user.email = jsonData.email;
   user.image = req.file ? req.file.filename:user.image;
@@ -70,7 +69,6 @@ app.get('*', (req, res) => {
   res.send({ message: '404 not found' })
 })
 app.use((err, req, res, next)=>{
-  console.log('ERROR!', err);
   const status = err.status||500;
   const message = err.message||'Something went wtong'
   res.status(status).json({ message: message })

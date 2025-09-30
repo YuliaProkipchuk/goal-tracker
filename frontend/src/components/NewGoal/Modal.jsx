@@ -25,9 +25,7 @@ export default function Modal({ openModal, closeModal }) {
       ref.current.close();
     }
   }, [openModal]);
-  console.log('ee',errors)
   async function onSubmit(formData) {
-    console.log(formData);
     try {
       await addGoal(formData).unwrap();
       closeModal();

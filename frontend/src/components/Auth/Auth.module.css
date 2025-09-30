@@ -1,13 +1,11 @@
 
 .auth-form {
     width:80%;
-    /* width: 20%; */
     margin: auto;
     min-height: 300px;
     display: grid;
     align-content: center;
     height: 70%;
-    /* flex-direction: column; */
 }
 .login{
     display: grid;
@@ -16,7 +14,6 @@
 .form-field {
     display: flex;
     flex-direction: column;
-    /* width: 70%; */
     align-items: center;
     font-family: sans-serif;
     position: relative;
@@ -49,7 +46,6 @@
 }
 .form-field input:focus {
     border-color: var(--accent); 
-    /* box-shadow: 0 0 10px rgba(255, 171, 64, 0.5); */
     outline: none; 
 }
 .form-field label {
@@ -65,7 +61,7 @@
     width: 100px;
     margin-top: 15px;
     width: 100%;
-    border-radius: 8px; /* Заокруглені краї */
+    border-radius: 8px; 
     border: none;
     outline: none;
     background-color: var(--primary);

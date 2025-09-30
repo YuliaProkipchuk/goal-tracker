@@ -14,7 +14,6 @@ export default function GoalPage() {
     return <p>{error.data.message}</p>;
   }
   const { goal } = data;
-  console.log(goal, goal.completed.toFixed(1));
   const date = new Date(goal.createdAt);
 
   return (

@@ -8,7 +8,6 @@ import DateHeading from "./DateHeading";
 
 // eslint-disable-next-line react/prop-types
 export default function ToDoList({ tasks, newDate, setNewDate }) {
-  console.log("tasks all ", tasks);
   const [addTaskBtnClicked, setAddTaskBtnClicked] = useState(false);
   
   

@@ -13,44 +13,26 @@
 }
 
 #dialog {
-  /* height: 100vh;
-  width: 100%; */
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-/* #dialog dialog{
-  margin: auto;
-  min-height: 550px;
-  min-width: 700px;
-  border: none;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.7);
-  padding: 20px;
-
-} */
 #dialog dialog::backdrop {
   background: rgba(0, 0, 0, 0.7);
 }
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #12111c;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #3d036d;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #8c00ff;
 }

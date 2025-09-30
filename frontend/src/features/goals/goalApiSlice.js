@@ -1,5 +1,4 @@
 import { apiSlice } from "../../services/api";
-// import { getGoalsID } from "./goalSlice";
 
 export const goalsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -10,11 +9,6 @@ export const goalsApiSlice = apiSlice.injectEndpoints({
             query: (searchTerm) => `goals/search?q=${searchTerm}`,
             providesTags: ['Goals'],
 
-            // async onQueryStarted(args, { dispatch, queryFulfilled }) {
-            //     const { data } = await queryFulfilled;
-            //     const ids = data.goals.map(goal => ({ id: goal._id, name: goal.name }))
-            //     dispatch(getGoalsID(ids))
-            // }
         }),
 
         addGoal: builder.mutation({

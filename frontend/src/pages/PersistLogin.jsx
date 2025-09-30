@@ -36,11 +36,9 @@ export default function PersistLogin() {
     content = <p>Loading...</p>;
   } else if (isError) {
     content = <p>Error: {error.message}</p>;
-    // return redirect('/auth')
   } else if (isSuccess && truSuccess) {
     content = <Outlet />;
   } else if (token && isUninitialized) {
-    // console.log("token and uninit");
     content = <Outlet />;
   }
   return content;

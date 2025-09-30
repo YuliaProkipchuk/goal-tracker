@@ -9,7 +9,7 @@ const goalRoutes = require('./routes/goals');
 const planRoutes = require('./routes/plan')
 const todoRoutes = require('./routes/todo');
 const notesRoutes = require('./routes/notes')
-// const profileRoutes = require('./routes/profile');
+const profileRoutes = require('./routes/profile');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorMiddleware');
 
@@ -31,7 +31,7 @@ app.use('/auth', userRoutes)
 app.use('/goals/:id/plan', planRoutes)
 app.use('/notes', notesRoutes) 
 app.use('/goals', goalRoutes)
-// app.use('/profile', profileRoutes)
+app.use('/profile', profileRoutes)
 app.use('/todo', todoRoutes)
 
 app.get('*', (req, res, next) => {

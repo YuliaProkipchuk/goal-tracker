@@ -11,7 +11,6 @@ export default function ToDoItem({ task, newDate }) {
   const [isDoubleClick, setIsDoubleClick] = useState(false);
   const [editText, setEditText] = useState(task.title);
   const timeout = useRef(null);
-  console.log(isDoubleClick);
   const [editTask] = useEditTodoMutation();
   const [deleteTask] = useDeleteTaskMutation();
   function handleChange() {
@@ -33,10 +32,9 @@ export default function ToDoItem({ task, newDate }) {
         month: newDate.getMonth() + 1,
         day: newDate.getDate(),
       };
-      console.log(data)
       editTask({todo:data, date})
     
-    }, 500); // Таймер на 500 мс
+    }, 500); 
   }
 
   function handleDoubleClick() {
@@ -47,7 +45,6 @@ export default function ToDoItem({ task, newDate }) {
   }
   function handleLoseFocus() {
     setIsDoubleClick(false);
-    console.log(editText);
     const date = {
       year: newDate.getFullYear(),
       month: newDate.getMonth() + 1,

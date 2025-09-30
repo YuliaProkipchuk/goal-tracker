@@ -21,9 +21,7 @@
     font-weight: 400;
     font-family: "Poppins", sans-serif;
     margin-right: 5px;
-    /* text-shadow: 0px 0px 2px #02433e3a; */
-    /* padding: 15px; */
-    /* display: block; */
+
 }
 .goals-menu span:hover, .goals-menu a:hover{
     cursor: pointer;

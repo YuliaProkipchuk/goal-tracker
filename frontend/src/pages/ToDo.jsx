@@ -10,7 +10,6 @@ export default function ToDoPage() {
     month: newDate.getMonth() + 1,
     day: newDate.getDate(),
   });
-  console.log(data);
   if (isFetching) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;
   return (

@@ -47,7 +47,6 @@ export default function Note({ note }) {
         <div
           className={classes.edit_btn}
           onClick={() => {
-            console.log("edit");
             setIsOpen(true);
           }}
           ref={editRef}

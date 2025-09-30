@@ -16,7 +16,6 @@
     height: 100%;
     color: var(--text-color);
     font-size: 7rem;
-    /* padding: 0 10px; */
     text-align: center;
     line-height: 200px;
 
@@ -24,7 +23,6 @@
 .dots{
     width: 30px;
     background-color: var(--main-background);
-    /* box-shadow: 0 0 10px 2px inset var(--main-background); */
 }
 @media screen and (min-width:1400px){
  .clock-wrapper{

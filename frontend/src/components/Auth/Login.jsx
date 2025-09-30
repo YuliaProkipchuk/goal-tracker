@@ -34,7 +34,6 @@ export default function Login() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     setPersist(true);
     try {
       const { accessToken } = await handleLogin(data).unwrap();

@@ -25,38 +25,11 @@ const COLUMNS = [
     title: "Completed",
   },
 ];
-const TASKS = [
-  {
-    id: "1",
-    title: "step1",
-    status: "not started",
-  },
-  {
-    id: "2",
-    title: "step2",
-    status: "not started",
-  },
-  {
-    id: "3",
-    title: "step3",
-    status: "not started",
-  },
-  {
-    id: "4",
-    title: "step4",
-    status: "in progress",
-  },
-  {
-    id: "5",
-    title: "step5",
-    status: "in progress",
-  },
-];
+
 export default function PlanSection({ goalId }) {
   const { data: plan, isFetching, isError } = useGetPlanQuery(goalId);
-  console.log('plan: ', plan)
   const [addPlanStep] = useAddStepMutation();
-  const [tasks, setTasks] = useState(TASKS);
+  const [tasks, setTasks] = useState(plan);
   function handleDragEnd(event) {
     const { over, active } = event;
     if (!over) return;
@@ -80,12 +53,12 @@ export default function PlanSection({ goalId }) {
       console.log(error);
     }
   }
-  // if (isFetching) {
-  //   return <p className={classes["loading"]}>Loading...</p>;
-  // }
-  // if (isError) {
-  //   return <p>Failed to fetch data</p>;
-  // }
+  if (isFetching) {
+    return <p className={classes["loading"]}>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Failed to fetch data</p>;
+  }
   return (
     <section className={classes["plan-page"]}>
       <h1>Goal Progress</h1>
@@ -99,7 +72,7 @@ export default function PlanSection({ goalId }) {
             >
               <h3>{column.title}</h3>
               <Droppable id={column.id}>
-                {/* {tasks.map((task) => {
+                {tasks.map((task) => {
                   if (task.status === column.id) {
                     return (
                       <Draggable id={task.id} key={task.id}>
@@ -108,33 +81,12 @@ export default function PlanSection({ goalId }) {
                     );
                   }
                   return null;
-                })} */}
+                })}
               </Droppable>
             </div>
           ))}
         </section>
       </DndContext>
-      {/* <div className={classes["plan-items"]}>
-        {!plan.length && (
-          <div>
-            <p>There is nothing here yet.</p>{" "}
-          </div>
-        )}
-        <AnimatePresence>
-          {plan.length !== 0 && (
-            <motion.ul
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ y: -30, opacity: 0 }}
-              key="list"
-            >
-              {plan.map((p) => (
-                <PlanStep key={p._id} p={p} />
-              ))}
-            </motion.ul>
-          )}
-        </AnimatePresence>
-      </div> */}
     </section>
   );
 }

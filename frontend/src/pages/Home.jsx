@@ -14,7 +14,6 @@ export default function HomePage() {
     error,
   } = useGetGoalsQuery(searchParams.get("q"));
   const { id, username } = useAuth();
-  console.log(id, username);
 
   if (isLoading) {
     return <p>loading...</p>;
@@ -28,7 +27,6 @@ export default function HomePage() {
       <Header />
       {!isLoading && (
         <main className="home-main">
-          {/* <AsideMenu /> */}
           <div className="home-section">
             <GoalsNav />
             <p className="welcome-p">Hello, {username}</p>

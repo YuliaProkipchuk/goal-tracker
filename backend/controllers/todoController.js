@@ -62,7 +62,6 @@ const createTodo = async (req, res, next) => {
 }
 
 const editTodo = async (req, res, next) => {
-    console.log(req.params, req.body)
     const taskId = req.params.taskId
     const { year, mm: month, dd: day } = req.params;
     const id = req.userId
@@ -75,10 +74,8 @@ const editTodo = async (req, res, next) => {
 
         const date = formatDate(new Date(year, month - 1, day));
         if (todo) {
-            console.log(todo)
             const tasks = todo.tasks.get(date) || [];
             const task = tasks.find(t => t._id.toString() === taskId)
-            console.log(task)
             if (req.body.actionType === 'check') {
                 task.isCompleted = req.body.isCompleted;
             }

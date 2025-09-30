@@ -50,12 +50,10 @@ GoalSchema.pre('save', async function (next) {
     try {
       const user = await User.findById(this.userId);
 
-      // await User.findByIdAndUpdate(this.userId, { $push: { goals: this._id } });
       user.goals.push(this._id)
       user.totalGoals++;
       user.inProgress++;
       
-      // user.userActivities.goalsActivities.push({ goalName: this.name, goalId: this._id, activityDates: [{ date: new Date(), count: 1 }] })
       await user.save()
       next();
     } catch (error) {
@@ -69,7 +67,6 @@ GoalSchema.pre('save', async function (next) {
 GoalSchema.pre('findOneAndDelete', async function (next) {
   try {
     const goal = await this.model.findOne(this.getQuery());
-    console.log(this, goal);
 
     const user = await User.findById(goal.userId);
 

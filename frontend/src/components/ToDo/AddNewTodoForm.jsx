@@ -8,7 +8,6 @@ import { useCreateTodoMutation } from "../../features/todos/todoApiSlice";
 
 export default function AddNewTodoForm({ closeForm, newDate }) {
   const goalsId = useSelector(selectAllGoalsIds);
-  console.log(goalsId)
   const [goalRelatedToTask, setGoalRelatedToTask] = useState({
     id: "",
     name: "",
@@ -34,7 +33,6 @@ export default function AddNewTodoForm({ closeForm, newDate }) {
       day: newDate.getDate(),
     };
 
-    console.log(date, newTask);
     mutation({ todo: data, date });
     closeForm();
   }

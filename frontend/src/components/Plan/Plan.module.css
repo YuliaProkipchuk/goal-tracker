@@ -59,17 +59,14 @@
   list-style: none;
   height: 100%;
   width: 100%;
-  /* background-color: #fff; */
   overflow: auto;
   border-radius: 5px;
   padding: 10px;
   color: var(--text-color);
 }
 
-/*  */
 form:has(>div.addStep_form) {
   width: 85%;
-  /* margin: auto; */
 }
 
 .addStep_form {
@@ -83,7 +80,6 @@ form:has(>div.addStep_form) {
   background: transparent;
   border: none;
   width: calc(100% - 165px);
-  /* width: 500px; */
   border-radius: 5px;
   padding: 10px;
   transition: border .3s;
@@ -150,7 +146,6 @@ form:has(>div.addStep_form) {
   justify-content: space-between;
   min-height: 50px;
   padding: 0 20px;
-  /* margin: auto; */
   align-items: center;
 
 }
@@ -163,7 +158,6 @@ form:has(>div.addStep_form) {
   background: none;
   width: 30px;
   margin-right: 10px;
-  /* padding: 5px; */
   border: none;
   color: var(--accent);
 }
@@ -219,23 +213,7 @@ form:has(>div.addStep_form) {
   min-height: 70px;
   margin: 10px 0;
 }
-/* @media screen and (max-width:1400px) {
-  .plan-page {
-    width: 70%;
-  }
-}
 
-@media screen and (max-width:920px) {
-  .plan-page {
-    width: 90%;
-  }
-} */
-
-/* @media screen and (max-width:800px) {
-  .plan-page {
-    width: 100%;
-  }
-} */
 
 @media screen and (max-width:500px) {
   .plan-item {
